@@ -19,5 +19,5 @@ resource "aws_iam_role_policy_attachment" "tfmigrate_plan_read_terraform_state" 
   count = var.s3_bucket_terraform_state_name == "" ? 1 : 0
 
   role       = aws_iam_role.tfmigrate_plan.name
-  policy_arn = aws_iam_policy.read_terraform_state.arn
+  policy_arn = aws_iam_policy.read_terraform_state[0].arn
 }
