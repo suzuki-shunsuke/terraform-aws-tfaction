@@ -16,14 +16,14 @@ resource "aws_iam_role_policy_attachment" "tfmigrate_apply_put_tfmigrate_history
 }
 
 resource "aws_iam_role_policy_attachment" "tfmigrate_apply_read_terraform_state" {
-  count = var.s3_bucket_terraform_state_name == "" ? 1 : 0
+  count = var.s3_bucket_terraform_state_name == "" ? 0 : 1
 
   role       = aws_iam_role.tfmigrate_apply.name
   policy_arn = aws_iam_policy.read_terraform_state[0].arn
 }
 
 resource "aws_iam_role_policy_attachment" "tfmigrate_apply_put_terraform_state" {
-  count = var.s3_bucket_terraform_state_name == "" ? 1 : 0
+  count = var.s3_bucket_terraform_state_name == "" ? 0 : 1
 
   role       = aws_iam_role.tfmigrate_apply.name
   policy_arn = aws_iam_policy.put_terraform_state[0].arn
