@@ -11,7 +11,7 @@ data "aws_iam_policy_document" "read_terraform_state" {
   }
   statement {
     resources = ["arn:aws:s3:::${var.s3_bucket_terraform_state_name}"]
-    actions   = ["s3:HeadObject"]
+    actions   = ["s3:ListBucket"]
   }
 }
 
