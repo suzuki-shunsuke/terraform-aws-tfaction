@@ -8,10 +8,6 @@ data "aws_iam_policy_document" "read_plan_file" {
     resources = ["arn:aws:s3:::${var.s3_bucket_terraform_plan_file_name}/*"]
     actions   = ["s3:GetObject"]
   }
-  statement {
-    resources = ["arn:aws:s3:::${var.s3_bucket_terraform_plan_file_name}"]
-    actions   = ["s3:HeadObject"]
-  }
 }
 
 resource "aws_iam_policy" "put_plan_file" {
