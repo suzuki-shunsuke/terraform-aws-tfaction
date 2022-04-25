@@ -1,0 +1,8 @@
+---
+# aqua - Declarative CLI Version Manager
+# https://aquaproj.github.io/
+registries:
+- type: standard
+  ref: v2.8.1 # renovate: depName=aquaproj/aqua-registry
+packages:
+- name: terraform-docs/terraform-docs@v0.16.0
