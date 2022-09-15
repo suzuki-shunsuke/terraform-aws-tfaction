@@ -23,7 +23,7 @@ data "aws_iam_policy_document" "put_plan_file" {
 }
 
 resource "aws_iam_policy" "delete_plan_file" {
-  name   = "GitHubActions_Terraform_${var.name}_deletete_plan_file"
+  name   = "GitHubActions_Terraform_${var.name}_delete_plan_file"
   policy = data.aws_iam_policy_document.delete_plan_file.json
 }
 
