@@ -20,20 +20,20 @@ output "aws_iam_role_tfmigrate_apply_arn" {
 
 output "aws_iam_role_terraform_plan_name" {
   value       = aws_iam_role.terraform_plan.name
-  description = "AWS IAM Role ARN for terraform plan"
+  description = "AWS IAM Role name for terraform plan"
 }
 
 output "aws_iam_role_terraform_apply_name" {
   value       = aws_iam_role.terraform_apply.name
-  description = "AWS IAM Role ARN for terraform apply"
+  description = "AWS IAM Role name for terraform apply"
 }
 
 output "aws_iam_role_tfmigrate_plan_name" {
   value       = aws_iam_role.tfmigrate_plan.name
-  description = "AWS IAM Role ARN for tfmigrate plan"
+  description = "AWS IAM Role name for tfmigrate plan"
 }
 
 output "aws_iam_role_tfmigrate_apply_name" {
   value       = aws_iam_role.tfmigrate_apply.name
-  description = "AWS IAM Role ARN for tfmigrate apply"
+  description = "AWS IAM Role name for tfmigrate apply"
 }
