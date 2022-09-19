@@ -114,13 +114,13 @@ No modules.
 | Name | Description |
 |------|-------------|
 | <a name="output_aws_iam_role_terraform_apply_arn"></a> [aws\_iam\_role\_terraform\_apply\_arn](#output\_aws\_iam\_role\_terraform\_apply\_arn) | AWS IAM Role ARN for terraform apply |
-| <a name="output_aws_iam_role_terraform_apply_name"></a> [aws\_iam\_role\_terraform\_apply\_name](#output\_aws\_iam\_role\_terraform\_apply\_name) | AWS IAM Role ARN for terraform apply |
+| <a name="output_aws_iam_role_terraform_apply_name"></a> [aws\_iam\_role\_terraform\_apply\_name](#output\_aws\_iam\_role\_terraform\_apply\_name) | AWS IAM Role name for terraform apply |
 | <a name="output_aws_iam_role_terraform_plan_arn"></a> [aws\_iam\_role\_terraform\_plan\_arn](#output\_aws\_iam\_role\_terraform\_plan\_arn) | AWS IAM Role ARN for terraform plan |
-| <a name="output_aws_iam_role_terraform_plan_name"></a> [aws\_iam\_role\_terraform\_plan\_name](#output\_aws\_iam\_role\_terraform\_plan\_name) | AWS IAM Role ARN for terraform plan |
+| <a name="output_aws_iam_role_terraform_plan_name"></a> [aws\_iam\_role\_terraform\_plan\_name](#output\_aws\_iam\_role\_terraform\_plan\_name) | AWS IAM Role name for terraform plan |
 | <a name="output_aws_iam_role_tfmigrate_apply_arn"></a> [aws\_iam\_role\_tfmigrate\_apply\_arn](#output\_aws\_iam\_role\_tfmigrate\_apply\_arn) | AWS IAM Role ARN for tfmigrate apply |
-| <a name="output_aws_iam_role_tfmigrate_apply_name"></a> [aws\_iam\_role\_tfmigrate\_apply\_name](#output\_aws\_iam\_role\_tfmigrate\_apply\_name) | AWS IAM Role ARN for tfmigrate apply |
+| <a name="output_aws_iam_role_tfmigrate_apply_name"></a> [aws\_iam\_role\_tfmigrate\_apply\_name](#output\_aws\_iam\_role\_tfmigrate\_apply\_name) | AWS IAM Role name for tfmigrate apply |
 | <a name="output_aws_iam_role_tfmigrate_plan_arn"></a> [aws\_iam\_role\_tfmigrate\_plan\_arn](#output\_aws\_iam\_role\_tfmigrate\_plan\_arn) | AWS IAM Role ARN for tfmigrate plan |
-| <a name="output_aws_iam_role_tfmigrate_plan_name"></a> [aws\_iam\_role\_tfmigrate\_plan\_name](#output\_aws\_iam\_role\_tfmigrate\_plan\_name) | AWS IAM Role ARN for tfmigrate plan |
+| <a name="output_aws_iam_role_tfmigrate_plan_name"></a> [aws\_iam\_role\_tfmigrate\_plan\_name](#output\_aws\_iam\_role\_tfmigrate\_plan\_name) | AWS IAM Role name for tfmigrate plan |
 
 ## LICENSE
 
