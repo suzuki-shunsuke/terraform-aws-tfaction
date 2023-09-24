@@ -30,6 +30,9 @@ resource "aws_iam_policy" "delete_plan_file" {
 data "aws_iam_policy_document" "delete_plan_file" {
   statement {
     resources = ["arn:aws:s3:::${var.s3_bucket_terraform_plan_file_name}/*"]
-    actions   = ["s3:DeleteObject"]
+    actions = [
+      "s3:DeleteObject",
+      "s3:ListBucket" # To delete objects recursively
+    ]
   }
 }
