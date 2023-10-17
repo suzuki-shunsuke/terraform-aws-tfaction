@@ -14,7 +14,6 @@ module "aws" {
   repo                               = "suzuki-shunsuke/tfaction-example"
   main_branch                        = "main"
   s3_bucket_tfmigrate_history_name   = "<S3 Bucket Name for tfmigrate hisotry>"
-  s3_bucket_terraform_plan_file_name = "<S3 Bucket Name for terraform plan file>"
   s3_bucket_terraform_state_name     = "<S3 Bucket Name for terraform state>"
 }
 
