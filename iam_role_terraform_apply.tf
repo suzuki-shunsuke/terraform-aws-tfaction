@@ -26,8 +26,3 @@ resource "aws_iam_role_policy_attachment" "terraform_apply_put_plan_file" {
   role       = aws_iam_role.terraform_apply.name
   policy_arn = aws_iam_policy.put_plan_file.arn
 }
-
-resource "aws_iam_role_policy_attachment" "terraform_apply_delete_plan_file" {
-  role       = aws_iam_role.terraform_apply.name
-  policy_arn = aws_iam_policy.delete_plan_file.arn
-}
