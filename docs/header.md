@@ -2,7 +2,7 @@
 
 Terraform Modules for [tfaction](https://github.com/suzuki-shunsuke/tfaction) (AWS resources)
 
-https://github.com/suzuki-shunsuke/tfaction/blob/main/docs/add-working-directory.md#aws-iam-role
+https://suzuki-shunsuke.github.io/tfaction/docs/config/add-working-directory/#aws-iam-role
 
 ## Example
 
