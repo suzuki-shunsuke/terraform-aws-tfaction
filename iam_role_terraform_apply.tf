@@ -16,13 +16,3 @@ resource "aws_iam_role_policy_attachment" "terraform_apply_put_terraform_state" 
   role       = aws_iam_role.terraform_apply.name
   policy_arn = aws_iam_policy.put_terraform_state[0].arn
 }
-
-resource "aws_iam_role_policy_attachment" "terraform_apply_read_plan_file" {
-  role       = aws_iam_role.terraform_apply.name
-  policy_arn = aws_iam_policy.read_plan_file.arn
-}
-
-resource "aws_iam_role_policy_attachment" "terraform_apply_put_plan_file" {
-  role       = aws_iam_role.terraform_apply.name
-  policy_arn = aws_iam_policy.put_plan_file.arn
-}
