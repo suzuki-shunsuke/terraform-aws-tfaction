@@ -90,6 +90,8 @@ No modules.
 
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
+| <a name="input_assume_role_policy_main_conditions"></a> [assume\_role\_policy\_main\_conditions](#input\_assume\_role\_policy\_main\_conditions) | n/a | <pre>list(object({<br>    test     = string<br>    variable = string<br>    values   = list(string)<br>  }))</pre> | `null` | no |
+| <a name="input_assume_role_policy_pr_conditions"></a> [assume\_role\_policy\_pr\_conditions](#input\_assume\_role\_policy\_pr\_conditions) | n/a | <pre>list(object({<br>    test     = string<br>    variable = string<br>    values   = list(string)<br>  }))</pre> | `null` | no |
 | <a name="input_main_branch"></a> [main\_branch](#input\_main\_branch) | n/a | `string` | `"main"` | no |
 | <a name="input_name"></a> [name](#input\_name) | n/a | `string` | n/a | yes |
 | <a name="input_repo"></a> [repo](#input\_repo) | n/a | `string` | n/a | yes |

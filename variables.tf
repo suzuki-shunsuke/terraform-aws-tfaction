@@ -26,6 +26,7 @@ variable "assume_role_policy_main_conditions" {
     variable = string
     values   = list(string)
   }))
+  default = null
 }
 
 variable "assume_role_policy_pr_conditions" {
@@ -34,4 +35,5 @@ variable "assume_role_policy_pr_conditions" {
     variable = string
     values   = list(string)
   }))
+  default = null
 }
