@@ -9,7 +9,7 @@ data "aws_iam_policy_document" "assume_role_policy_pr" {
       content {
         test     = condition.value["test"]
         variable = condition.value["variable"]
-        value    = condition.value["value"]
+        values   = condition.value["values"]
       }
     }
 
@@ -29,7 +29,7 @@ data "aws_iam_policy_document" "assume_role_policy_main" {
       content {
         test     = condition.value["test"]
         variable = condition.value["variable"]
-        value    = condition.value["value"]
+        values   = condition.value["values"]
       }
     }
 
