@@ -5,7 +5,7 @@ data "aws_iam_policy_document" "assume_role_policy_pr" {
     actions = ["sts:AssumeRoleWithWebIdentity"]
 
     dynamic "condition" {
-      for_each = var.assume_role_policy_pr_conditions ? var.assume_role_policy_pr_conditions : local.default_assume_role_policy_pr_conditions
+      for_each = var.assume_role_policy_pr_conditions != null ? var.assume_role_policy_pr_conditions : local.default_assume_role_policy_pr_conditions
       content {
         test     = condition.value["test"]
         variable = condition.value["variable"]
@@ -25,7 +25,7 @@ data "aws_iam_policy_document" "assume_role_policy_main" {
     actions = ["sts:AssumeRoleWithWebIdentity"]
 
     dynamic "condition" {
-      for_each = var.assume_role_policy_main_conditions ? var.assume_role_policy_main_conditions : local.default_assume_role_policy_main_conditions
+      for_each = var.assume_role_policy_main_conditions != null ? var.assume_role_policy_main_conditions : local.default_assume_role_policy_main_conditions
       content {
         test     = condition.value["test"]
         variable = condition.value["variable"]
