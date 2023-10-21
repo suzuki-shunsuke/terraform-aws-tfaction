@@ -4,16 +4,13 @@ data "aws_iam_policy_document" "assume_role_policy_pr" {
   statement {
     actions = ["sts:AssumeRoleWithWebIdentity"]
 
-    condition {
-      test     = "StringEquals"
-      variable = "token.actions.githubusercontent.com:aud"
-      values   = ["sts.amazonaws.com"]
-    }
-
-    condition {
-      test     = "StringLike"
-      variable = "token.actions.githubusercontent.com:sub"
-      values   = ["repo:${var.repo}:*"]
+    dynamic "condition" {
+      for_each = var.assume_role_policy_pr_conditions != null ? var.assume_role_policy_pr_conditions : local.default_assume_role_policy_pr_conditions
+      content {
+        test     = condition.value["test"]
+        variable = condition.value["variable"]
+        values   = condition.value["values"]
+      }
     }
 
     principals {
@@ -27,16 +24,13 @@ data "aws_iam_policy_document" "assume_role_policy_main" {
   statement {
     actions = ["sts:AssumeRoleWithWebIdentity"]
 
-    condition {
-      test     = "StringEquals"
-      variable = "token.actions.githubusercontent.com:aud"
-      values   = ["sts.amazonaws.com"]
-    }
-
-    condition {
-      test     = "StringEquals"
-      variable = "token.actions.githubusercontent.com:sub"
-      values   = ["repo:${var.repo}:ref:refs/heads/${var.main_branch}"]
+    dynamic "condition" {
+      for_each = var.assume_role_policy_main_conditions != null ? var.assume_role_policy_main_conditions : local.default_assume_role_policy_main_conditions
+      content {
+        test     = condition.value["test"]
+        variable = condition.value["variable"]
+        values   = condition.value["values"]
+      }
     }
 
     principals {
