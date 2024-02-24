@@ -3,6 +3,6 @@
 # https://aquaproj.github.io/
 registries:
 - type: standard
-  ref: v4.140.0 # renovate: depName=aquaproj/aqua-registry
+  ref: v4.141.0 # renovate: depName=aquaproj/aqua-registry
 packages:
 - name: terraform-docs/terraform-docs@v0.17.0
