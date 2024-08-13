@@ -20,6 +20,11 @@ variable "s3_bucket_terraform_state_name" {
   default = ""
 }
 
+variable "create_oidc_provider" {
+  type    = bool
+  default = false
+}
+
 variable "assume_role_policy_main_conditions" {
   type = list(object({
     test     = string
