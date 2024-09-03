@@ -8,4 +8,10 @@ resource "aws_iam_openid_connect_provider" "github" {
     "d89e3bd43d5d909b47a18977aa9d5ce36cee184c",
   ]
   client_id_list = ["sts.amazonaws.com"]
+
+  lifecycle {
+    ignore_changes = [
+      thumbprint_list,
+    ]
+  }
 }
