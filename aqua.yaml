@@ -5,4 +5,4 @@ registries:
 - type: standard
   ref: v4.492.0 # renovate: depName=aquaproj/aqua-registry
 packages:
-- name: terraform-docs/terraform-docs@v0.21.0
+- name: terraform-docs/terraform-docs@v0.22.0
