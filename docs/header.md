@@ -39,3 +39,32 @@ resource "aws_iam_role_policy_attachment" "tfmigrate_apply_readonly" {
   policy_arn = "arn:aws:iam::aws:policy/ReadOnlyAccess"
 }
 ```
+
+## S3 Buckets encrypted with customer managed keys
+
+If S3 Buckets are encrypted with customer managed keys (SSE-KMS), IAM Roles need permissions of the
+KMS Keys in addition to the permissions of the buckets. Otherwise `terraform init` fails:
+
+```
+Error: Error refreshing state: Unable to access object "<key>" in S3 bucket "<bucket>": operation error S3: GetObject, https response error StatusCode: 403, api error AccessDenied: User: <IAM Role> is not authorized to perform: kms:Decrypt on resource: <KMS Key> because no identity-based policy allows the kms:Decrypt action
+```
+
+Set the ARNs of the KMS Keys, then the module grants `kms:Decrypt` and `kms:GenerateDataKey` to the
+IAM Roles which need them:
+
+```tf
+module "aws" {
+  source = "github.com/suzuki-shunsuke/terraform-aws-tfaction"
+
+  name                                     = "AWS"
+  repo                                     = "suzuki-shunsuke/tfaction-example"
+  main_branch                              = "main"
+  s3_bucket_tfmigrate_history_name         = aws_s3_bucket.tfmigrate_history.id
+  s3_bucket_terraform_state_name           = aws_s3_bucket.terraform_state.id
+  s3_bucket_tfmigrate_history_kms_key_arns = [aws_kms_key.tfmigrate_history.arn]
+  s3_bucket_terraform_state_kms_key_arns   = [aws_kms_key.terraform_state.arn]
+}
+```
+
+These variables are lists rather than strings so that they can accept ARNs of KMS Keys created in
+the same plan, whose values are unknown at plan time.

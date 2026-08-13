@@ -40,17 +40,46 @@ resource "aws_iam_role_policy_attachment" "tfmigrate_apply_readonly" {
 }
 ```
 
+## S3 Buckets encrypted with customer managed keys
+
+If S3 Buckets are encrypted with customer managed keys (SSE-KMS), IAM Roles need permissions of the
+KMS Keys in addition to the permissions of the buckets. Otherwise `terraform init` fails:
+
+```
+Error: Error refreshing state: Unable to access object "<key>" in S3 bucket "<bucket>": operation error S3: GetObject, https response error StatusCode: 403, api error AccessDenied: User: <IAM Role> is not authorized to perform: kms:Decrypt on resource: <KMS Key> because no identity-based policy allows the kms:Decrypt action
+```
+
+Set the ARNs of the KMS Keys, then the module grants `kms:Decrypt` and `kms:GenerateDataKey` to the
+IAM Roles which need them:
+
+```tf
+module "aws" {
+  source = "github.com/suzuki-shunsuke/terraform-aws-tfaction"
+
+  name                                     = "AWS"
+  repo                                     = "suzuki-shunsuke/tfaction-example"
+  main_branch                              = "main"
+  s3_bucket_tfmigrate_history_name         = aws_s3_bucket.tfmigrate_history.id
+  s3_bucket_terraform_state_name           = aws_s3_bucket.terraform_state.id
+  s3_bucket_tfmigrate_history_kms_key_arns = [aws_kms_key.tfmigrate_history.arn]
+  s3_bucket_terraform_state_kms_key_arns   = [aws_kms_key.terraform_state.arn]
+}
+```
+
+These variables are lists rather than strings so that they can accept ARNs of KMS Keys created in
+the same plan, whose values are unknown at plan time.
+
 ## Requirements
 
 | Name | Version |
-|------|---------|
+| ---- | ------- |
 | <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 0.13.1 |
 | <a name="requirement_aws"></a> [aws](#requirement\_aws) | >= 3.63 |
 
 ## Providers
 
 | Name | Version |
-|------|---------|
+| ---- | ------- |
 | <a name="provider_aws"></a> [aws](#provider\_aws) | >= 3.63 |
 
 ## Modules
@@ -60,7 +89,7 @@ No modules.
 ## Resources
 
 | Name | Type |
-|------|------|
+| ---- | ---- |
 | [aws_iam_openid_connect_provider.github](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_openid_connect_provider) | resource |
 | [aws_iam_policy.lock_terraform_state](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_policy) | resource |
 | [aws_iam_policy.put_terraform_state](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_policy) | resource |
@@ -81,7 +110,6 @@ No modules.
 | [aws_iam_role_policy_attachment.tfmigrate_apply_put_tfmigrate_history](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_role_policy_attachment) | resource |
 | [aws_iam_role_policy_attachment.tfmigrate_apply_read_terraform_state](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_role_policy_attachment) | resource |
 | [aws_iam_role_policy_attachment.tfmigrate_apply_read_tfmigrate_history](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_role_policy_attachment) | resource |
-| [aws_iam_role_policy_attachment.tfmigrate_plan_lock_terraform_state](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_role_policy_attachment) | resource |
 | [aws_iam_role_policy_attachment.tfmigrate_plan_read_terraform_state](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_role_policy_attachment) | resource |
 | [aws_iam_role_policy_attachment.tfmigrate_plan_read_tfmigrate_history](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_role_policy_attachment) | resource |
 | [aws_caller_identity.current](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/caller_identity) | data source |
@@ -96,20 +124,22 @@ No modules.
 ## Inputs
 
 | Name | Description | Type | Default | Required |
-|------|-------------|------|---------|:--------:|
+| ---- | ----------- | ---- | ------- | :------: |
 | <a name="input_assume_role_policy_main_conditions"></a> [assume\_role\_policy\_main\_conditions](#input\_assume\_role\_policy\_main\_conditions) | n/a | <pre>list(object({<br/>    test     = string<br/>    variable = string<br/>    values   = list(string)<br/>  }))</pre> | `null` | no |
 | <a name="input_assume_role_policy_pr_conditions"></a> [assume\_role\_policy\_pr\_conditions](#input\_assume\_role\_policy\_pr\_conditions) | n/a | <pre>list(object({<br/>    test     = string<br/>    variable = string<br/>    values   = list(string)<br/>  }))</pre> | `null` | no |
 | <a name="input_create_oidc_provider"></a> [create\_oidc\_provider](#input\_create\_oidc\_provider) | n/a | `bool` | `false` | no |
 | <a name="input_main_branch"></a> [main\_branch](#input\_main\_branch) | n/a | `string` | `"main"` | no |
 | <a name="input_name"></a> [name](#input\_name) | n/a | `string` | n/a | yes |
 | <a name="input_repo"></a> [repo](#input\_repo) | n/a | `string` | n/a | yes |
+| <a name="input_s3_bucket_terraform_state_kms_key_arns"></a> [s3\_bucket\_terraform\_state\_kms\_key\_arns](#input\_s3\_bucket\_terraform\_state\_kms\_key\_arns) | ARNs of KMS Keys encrypting the S3 Bucket for Terraform State. If the bucket is encrypted with customer managed keys, you have to set this variable so that IAM Roles can read and write Terraform State. | `list(string)` | `[]` | no |
 | <a name="input_s3_bucket_terraform_state_name"></a> [s3\_bucket\_terraform\_state\_name](#input\_s3\_bucket\_terraform\_state\_name) | n/a | `string` | `""` | no |
+| <a name="input_s3_bucket_tfmigrate_history_kms_key_arns"></a> [s3\_bucket\_tfmigrate\_history\_kms\_key\_arns](#input\_s3\_bucket\_tfmigrate\_history\_kms\_key\_arns) | ARNs of KMS Keys encrypting the S3 Bucket for tfmigrate history. If the bucket is encrypted with customer managed keys, you have to set this variable so that IAM Roles can read and write tfmigrate history. | `list(string)` | `[]` | no |
 | <a name="input_s3_bucket_tfmigrate_history_name"></a> [s3\_bucket\_tfmigrate\_history\_name](#input\_s3\_bucket\_tfmigrate\_history\_name) | n/a | `string` | n/a | yes |
 
 ## Outputs
 
 | Name | Description |
-|------|-------------|
+| ---- | ----------- |
 | <a name="output_aws_iam_role_terraform_apply_arn"></a> [aws\_iam\_role\_terraform\_apply\_arn](#output\_aws\_iam\_role\_terraform\_apply\_arn) | AWS IAM Role ARN for terraform apply |
 | <a name="output_aws_iam_role_terraform_apply_name"></a> [aws\_iam\_role\_terraform\_apply\_name](#output\_aws\_iam\_role\_terraform\_apply\_name) | AWS IAM Role name for terraform apply |
 | <a name="output_aws_iam_role_terraform_plan_arn"></a> [aws\_iam\_role\_terraform\_plan\_arn](#output\_aws\_iam\_role\_terraform\_plan\_arn) | AWS IAM Role ARN for terraform plan |
