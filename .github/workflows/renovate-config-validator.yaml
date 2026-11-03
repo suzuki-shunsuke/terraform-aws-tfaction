@@ -19,7 +19,7 @@ jobs:
     timeout-minutes: 30
     runs-on: ubuntu-26.04
     steps:
-      - uses: actions/checkout@ac593985615ec2ede58e132d2e21d2b1cbd6127c # v3
+      - uses: actions/checkout@v3.3.0
         with:
           persist-credentials: false
-      - uses: suzuki-shunsuke/github-action-renovate-config-validator@1e1604219a6b38ae9a10aff42a28a3656322c31a # v2.4.1
+      - uses: suzuki-shunsuke/github-action-renovate-config-validator@v2.4.1
